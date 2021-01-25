@@ -30,11 +30,6 @@ Parameters:
     Description: (Optional - An empty value disables this feature)
     Default: ''
 
-  YourIp:
-    Type: String
-    Description: (Optional - An empty value disables this feature)
-    Default: ''
-
   HostedZoneId:
     Type: String
     Description: (Optional - An empty value disables this feature) If you have a hosted zone in Route 53 and wish to set a DNS record whenever your Minecraft instance starts, supply the hosted zone ID here.
@@ -93,7 +88,6 @@ Metadata:
           default: Optional Remote Access (SSH) Configuration
         Parameters:
         - KeyPairName
-        - YourIp
       - Label: 
           default: Optional DNS Configuration
         Parameters:
@@ -118,8 +112,6 @@ Metadata:
         default: "A comma delimited list (no spaces) of player names"
       KeyPairName:
         default: "If you wish to access the instance via SSH, select a Key Pair to use. https://console.aws.amazon.com/ec2/v2/home?#KeyPairs:sort=keyName"
-      YourIp:
-        default: "If you wish to access the instance via SSH, provide your public IP address."
       HostedZoneId:
         default: "If you have a hosted zone in Route 53 and wish to update a DNS record whenever your Minecraft instance starts, supply the hosted zone ID here."
       RecordName:
@@ -261,7 +253,7 @@ Resources:
         - FromPort: 22
           ToPort: 22
           IpProtocol: tcp
-          CidrIp: !Sub "${YourIp}/32"
+          CidrIp: "0.0.0.0/0"
         - !Ref 'AWS::NoValue'
       - FromPort: 25565
         ToPort: 25565
